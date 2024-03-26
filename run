@@ -1,0 +1,29 @@
+#!/usr/bin/bash
+
+vFlag=false
+taskNum=""
+
+while [ -n "$1" ]; do
+	case $1 in
+		-v ) vFlag=true
+			;;
+		* ) taskNum="$1"
+			;;
+	esac
+	shift
+done
+
+
+if [ -n "$taskNum" ]; then
+	MAIN=$taskNum-main.c
+else
+	MAIN=main.c
+fi
+printf "Using %s as main\n" "$MAIN"
+make ARGS="$MAIN"
+
+if [ $vFlag = true ]; then
+	valgrind --track-origins=yes ./build/main
+else
+	./build/main
+fi
