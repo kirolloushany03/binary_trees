@@ -1,8 +1,8 @@
 #include "binary_trees.h"
 
-size_t binary_tree_size(const binary_tree_t *tree);
+size_t binary_tree_size_2(const binary_tree_t *tree);
 /**
- * binary_tree_preorder - Performs a level-order traversal on a binary tree
+ * binary_tree_preorder_2 - Performs a level-order traversal on a binary tree
  * @tree: Pointer to the root node of the tree
  * @func: Pointer to the function to be called for each node
  *
@@ -18,10 +18,10 @@ size_t binary_tree_size(const binary_tree_t *tree);
  * the value stored in each node. If the function pointer is NULL,
  * this function does nothing.
  */
-void binary_tree_preorder(const binary_tree_t *tree, void (*func)(int))
+void binary_tree_preorder_2(const binary_tree_t *tree, void (*func)(int))
 {
 	binary_tree_t **nodes_queue =
-					  malloc(sizeof(binary_tree_t *) * binary_tree_size(tree)),
+					  malloc(sizeof(binary_tree_t *) * binary_tree_size_2(tree)),
 				  *tmp_node;
 	int i = 0, j = 0;
 
@@ -45,7 +45,7 @@ void binary_tree_preorder(const binary_tree_t *tree, void (*func)(int))
 }
 
 /**
- * binary_tree_size - Measures the size of a binary tree
+ * binary_tree_size_2 - Measures the size of a binary tree
  * @tree: Pointer to the root node of the tree
  *
  * This function measures the size of the binary tree
@@ -58,9 +58,9 @@ void binary_tree_preorder(const binary_tree_t *tree, void (*func)(int))
  *
  * Return: Size of the binary tree, or 0 if the tree is NULL
  */
-size_t binary_tree_size(const binary_tree_t *tree)
+size_t binary_tree_size_2(const binary_tree_t *tree)
 {
 	if (!tree)
 		return (0);
-	return (binary_tree_size(tree->left) + binary_tree_size(tree->right) + 1);
+	return (binary_tree_size_2(tree->left) + binary_tree_size_2(tree->right) + 1);
 }

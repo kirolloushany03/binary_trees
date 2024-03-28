@@ -52,7 +52,7 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 	if (!tree)
 		return (0);
 
-	depth = binary_tree_height(tree);
+	depth = binary_tree_is_perfect_height(tree);
 
 	return (binary_tree_is_perfect_helper(tree, depth, 0));
 }
