@@ -9,7 +9,7 @@
  */
 bst_t *array_to_bst(int *array, size_t size)
 {
-	bst_t *tree = NULL;
+	bst_t *res = NULL;
 	size_t i, j;
 
 	if (array == NULL)
@@ -23,11 +23,9 @@ bst_t *array_to_bst(int *array, size_t size)
 				break;
 		}
 		if (j == i)
-		{
-			if (bst_insert(&tree, array[i]) == NULL)
+			if (bst_insert(&res, array[i]) == NULL)
 				return (NULL);
-		}
 	}
 
-	return (tree);
+	return (res);
 }
