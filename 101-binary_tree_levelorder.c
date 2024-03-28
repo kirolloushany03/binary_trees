@@ -2,7 +2,7 @@
 
 size_t binary_tree_size(const binary_tree_t *tree);
 /**
- * binary_tree_levelorder - Performs a level-order traversal on a binary tree
+ * binary_tree_preorder - Performs a level-order traversal on a binary tree
  * @tree: Pointer to the root node of the tree
  * @func: Pointer to the function to be called for each node
  *
@@ -18,7 +18,7 @@ size_t binary_tree_size(const binary_tree_t *tree);
  * the value stored in each node. If the function pointer is NULL,
  * this function does nothing.
  */
-void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
+void binary_tree_preorder(const binary_tree_t *tree, void (*func)(int))
 {
 	binary_tree_t **nodes_queue =
 					  malloc(sizeof(binary_tree_t *) * binary_tree_size(tree)),
