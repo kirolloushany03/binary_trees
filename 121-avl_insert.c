@@ -1,17 +1,9 @@
 #include "binary_trees.h"
 
 /**
- * fix_balance - Fixes the balance of an AVL tree after insertion
- * @tree: Pointer to a pointer to the root node of the AVL tree
- * @value: Value of the newly inserted node
- *
- * This function fixes the balance of the AVL tree rooted at the specified node
- * after inserting a new node with the given value.
- * It checks the balance factor of the tree and performs rotations
- * if necessary to maintain the AVL property.
- *
- * @tree: Pointer to a pointer to the root node of the AVL tree
- * @value: Value of the newly inserted node
+ * fix_balance - rebalance an avl tree on insertion (or deletion)
+ * @tree: reference to the root of the tree
+ * @value: newly added node
  */
 void fix_balance(avl_t **tree, int value)
 {
@@ -36,45 +28,37 @@ void fix_balance(avl_t **tree, int value)
  * avl_insert - Inserts a value into an AVL tree
  * @tree: Pointer to a pointer to the root node of the AVL tree
  * @value: Value to insert into the AVL tree
- *
- * This function inserts a new node with the given value into the AVL tree
- * pointed to by the specified pointer to the root node. After insertion,
- * it fixes the balance of the tree using the fix_balance() function.
- *
- * @tree: Pointer to a pointer to the root node of the AVL tree
- * @value: Value to insert into the AVL tree
- *
  * Return: Pointer to the newly inserted node, or NULL if the insertion fails
  */
 avl_t *avl_insert(avl_t **tree, int value)
 {
-	bst_t *new_node = binary_tree_node(NULL, value), *current_node = *tree;
+	bst_t *created_node = binary_tree_node(NULL, value), *curr_node = *tree;
 
-	if (current_node)
+	if (curr_node)
 	{
-		while (current_node)
+		while (curr_node)
 		{
-			if (value == current_node->n)
-				free(new_node), new_node = current_node = NULL;
-			else if (value < current_node->n && current_node->left)
-				current_node = current_node->left;
-			else if (value > current_node->n && current_node->right)
-				current_node = current_node->right;
+			if (value == curr_node->n)
+				free(created_node), created_node = curr_node = NULL;
+			else if (value < curr_node->n && curr_node->left)
+				curr_node = curr_node->left;
+			else if (value > curr_node->n && curr_node->right)
+				curr_node = curr_node->right;
 			else
 			{
-				if (value < current_node->n)
-					current_node->left = new_node;
+				if (value < curr_node->n)
+					curr_node->left = created_node;
 				else
-					current_node->right = new_node;
-				new_node->parent = current_node;
+					curr_node->right = created_node;
+				created_node->parent = curr_node;
 				break;
 			}
 		}
 	}
 	else
-		*tree = new_node;
-	while (current_node)
-		fix_balance(current_node == *tree ? tree : &current_node, value),
-			current_node = current_node->parent;
-	return (new_node);
+		*tree = created_node;
+	while (curr_node)
+		fix_balance(curr_node == *tree ? tree : &curr_node, value),
+			curr_node = curr_node->parent;
+	return (created_node);
 }
